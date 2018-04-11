@@ -1,5 +1,5 @@
 apply plugin: 'com.android.application'
-apply plugin: 'android-apt'
+//apply plugin: 'android-apt'
 apply plugin: 'org.greenrobot.greendao'
 apply plugin: 'com.antfortune.freeline'
 
@@ -13,6 +13,7 @@ android {
         targetSdkVersion rootProject.ext.targetSdk
         versionCode 104
         versionName "1.0.4"
+        javaCompileOptions { annotationProcessorOptions { includeCompileClasspath = true } }
     }
 
     signingConfigs {
@@ -23,7 +24,7 @@ android {
                 keyAlias "mvpapp"
                 keyPassword "abc123"
             } catch (ex) {
-                throw new InvalidUserDataException(ex.toString())
+
             }
         }
     }
@@ -43,8 +44,12 @@ android {
             minifyEnabled false
             signingConfig signingConfigs.debug
         }
+        beta {
 
-        greendao{
+            //关键代码，release， debug为library中已有buildType
+            matchingFallbacks = ['release', 'debug']
+        }
+        greendao {
             schemaVersion 4
 //            targetGenDir 'src/main/java'
         }
@@ -56,77 +61,77 @@ android {
 }
 
 dependencies {
-    compile fileTree(include: ['*.jar'], dir: 'libs')
-    testCompile 'junit:junit:4.12'
-    compile "com.android.support:appcompat-v7:${rootProject.ext.support}"
-    compile "com.android.support:recyclerview-v7:${rootProject.ext.support}"
-    compile "com.android.support:cardview-v7:${rootProject.ext.support}"
-    compile "com.android.support:support-v4:${rootProject.ext.support}"
-    compile "com.android.support:design:${rootProject.ext.support}"
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    testImplementation 'junit:junit:4.12'
+    implementation "com.android.support:appcompat-v7:${rootProject.ext.support}"
+    implementation "com.android.support:recyclerview-v7:${rootProject.ext.support}"
+    implementation "com.android.support:cardview-v7:${rootProject.ext.support}"
+    implementation "com.android.support:support-v4:${rootProject.ext.support}"
+    implementation "com.android.support:design:${rootProject.ext.support}"
     // leakcanary
-    debugCompile 'com.squareup.leakcanary:leakcanary-android:1.4-beta2'
-    releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.4-beta2'
+    debugImplementation 'com.squareup.leakcanary:leakcanary-android:1.4-beta2'
+    releaseImplementation 'com.squareup.leakcanary:leakcanary-android-no-op:1.4-beta2'
     // butterknife
-    apt 'com.jakewharton:butterknife-compiler:8.2.1'
-    compile 'com.jakewharton:butterknife:8.2.1'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.2.1'
+    implementation 'com.jakewharton:butterknife:8.2.1'
     // rxjava
-    compile 'io.reactivex:rxjava:1.1.9'
-    compile 'io.reactivex:rxandroid:1.2.1'
-    compile 'com.jakewharton.rxbinding:rxbinding:0.4.0'
-    compile 'com.trello:rxlifecycle:1.0'
-    compile 'com.trello:rxlifecycle-components:1.0'
-    compile 'com.tbruyelle.rxpermissions:rxpermissions:0.9.1@aar'
+    implementation 'io.reactivex:rxjava:1.1.9'
+    implementation 'io.reactivex:rxandroid:1.2.1'
+    implementation 'com.jakewharton.rxbinding:rxbinding:0.4.0'
+    implementation 'com.trello:rxlifecycle:1.0'
+    implementation 'com.trello:rxlifecycle-components:1.0'
+    implementation 'com.tbruyelle.rxpermissions:rxpermissions:0.9.1@aar'
     // dagger
-    apt 'com.google.dagger:dagger-compiler:2.6'
-    compile 'com.google.dagger:dagger:2.6'
+    annotationProcessor 'com.google.dagger:dagger-compiler:2.6'
+    implementation 'com.google.dagger:dagger:2.6'
     // retrofit
-    compile 'com.squareup.retrofit2:retrofit:2.1.0'
-    compile 'com.squareup.retrofit2:converter-gson:2.1.0'
-    compile 'com.squareup.retrofit2:adapter-rxjava:2.1.0'
+    implementation 'com.squareup.retrofit2:retrofit:2.1.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.1.0'
+    implementation 'com.squareup.retrofit2:adapter-rxjava:2.1.0'
     // logger
-    compile 'com.orhanobut:logger:1.15'
+    implementation 'com.orhanobut:logger:1.15'
     // greendao
-    compile 'org.greenrobot:greendao:3.1.0'
+    implementation 'org.greenrobot:greendao:3.1.0'
     // circleimageview
-    compile 'de.hdodenhof:circleimageview:2.1.0'
+    implementation 'de.hdodenhof:circleimageview:2.1.0'
     // slider
-    compile 'com.daimajia.slider:library:1.1.5'
+    implementation 'com.daimajia.slider:library:1.1.5'
     // picasso, slider 库需要用到下面两个库,这样有点多余，可以选择别的库
-    compile 'com.squareup.picasso:picasso:2.5.2'
-    compile 'com.nineoldandroids:library:2.4.0'
+    implementation 'com.squareup.picasso:picasso:2.5.2'
+    implementation 'com.nineoldandroids:library:2.4.0'
     // recyclerview-animators
-    compile 'jp.wasabeef:recyclerview-animators:2.2.3'
+    implementation 'jp.wasabeef:recyclerview-animators:2.2.3'
     // html text
-    compile 'com.zzhoujay.richtext:richtext:2.0.9'
+    implementation 'com.zzhoujay.richtext:richtext:2.0.9'
     // LabelView
-    compile 'com.flyco.labelview:FlycoLabelView_Lib:1.0.2@aar'
+    implementation 'com.flyco.labelview:FlycoLabelView_Lib:1.0.2@aar'
     // photoview
-    compile 'com.github.chrisbanes.photoview:library:1.2.4'
+    implementation 'com.github.chrisbanes.photoview:library:1.2.4'
     // dragsloplayout
-    compile 'com.github.Rukey7:DragSlopLayout:1.0.3'
+    implementation 'com.github.Rukey7:DragSlopLayout:1.0.3'
     // TagLayout
-    compile 'com.github.Rukey7:TagLayout:1.0.5'
+    implementation 'com.github.Rukey7:TagLayout:1.0.5'
     // file picker
-    compile 'com.github.angads25:filepicker:1.0.6'
+    implementation 'com.github.angads25:filepicker:1.0.6'
     // IjkPlayerView
 //    compile 'com.github.Rukey7:IjkPlayerView:1.0.4'
     // shine button
-    compile 'com.sackcentury:shinebutton:0.1.6'
+    implementation 'com.sackcentury:shinebutton:0.1.6'
     // tab layout
-    compile 'com.flyco.tablayout:FlycoTabLayout_Lib:2.1.0@aar'
+    implementation 'com.flyco.tablayout:FlycoTabLayout_Lib:2.1.0@aar'
     // progressbar
-    compile 'com.daimajia.numberprogressbar:library:1.2'
+    implementation 'com.daimajia.numberprogressbar:library:1.2'
     // Dialog
-    compile 'com.flyco.dialog:FlycoDialog_Lib:1.3.2@aar'
+    implementation 'com.flyco.dialog:FlycoDialog_Lib:1.3.2@aar'
     // change skin
     //    compile 'com.zhy:changeskin:4.0.2'
     //可选，用于生成application类
     provided("com.tencent.tinker:tinker-android-anno:${TINKER_VERSION}") { changing = true }
 
-    compile project(':RecyclerViewHelper')
-    compile project(':downloaderLib')
-    compile project(':playerview')
-    compile project(':tinkerLib')
+    implementation project(':RecyclerViewHelper')
+    implementation project(':downloaderLib')
+    implementation project(':playerview')
+    implementation project(':tinkerLib')
 }
 
 apply from: 'tinker_build.gradle'
