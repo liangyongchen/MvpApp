@@ -29,7 +29,7 @@ dependencies {
     implementation "com.android.support:appcompat-v7:${rootProject.ext.support}"
     testImplementation 'junit:junit:4.12'
 
-    implementation "com.android.support:multidex:1.0.1"
+    api "com.android.support:multidex:1.0.1"
     //tinker的核心库
-    implementation("com.tencent.tinker:tinker-android-lib:${TINKER_VERSION}") { changing = true }
+    api("com.tencent.tinker:tinker-android-lib:${TINKER_VERSION}") { changing = true }
 }

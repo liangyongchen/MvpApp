@@ -26,5 +26,5 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     implementation "com.android.support:appcompat-v7:${rootProject.ext.support}"
     // okhttp
-    implementation 'com.squareup.okhttp3:okhttp:3.3.0'
+    api 'com.squareup.okhttp3:okhttp:3.3.0'
 }
